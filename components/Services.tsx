@@ -13,6 +13,7 @@ type Pkg = {
   name: string;
   tagline: string;
   price: string;
+  priceNote: string;
   duration: string;
   highlight?: boolean;
   badge?: string;
@@ -24,14 +25,17 @@ type Pkg = {
 const PACKAGES: Pkg[] = [
   {
     name: "Starter Pentest",
-    tagline: "Küçük & orta ölçekli işletmeler için temel sızma testi.",
-    price: "Talep Üzerine",
+    tagline:
+      "Küçük işletmeler ve fabrikalar için temel dış ağ güvenlik denetimi.",
+    price: "₺30.000",
+    priceNote: "Ortalama bedel • KDV hariç",
     duration: "5 - 7 iş günü",
     icon: Zap,
     features: [
-      "Tek web uygulaması veya tek domain",
-      "OWASP Top 10 odaklı test",
-      "Otomatik + manuel zafiyet taraması",
+      "Dış ağ (External) zafiyet taraması",
+      "OWASP Top 10 kritik zafiyet kontrolü",
+      "Açık port ve servis analizi",
+      "Otomatik + manuel doğrulama",
       "Yönetici özetli teknik rapor",
       "1 ay içinde ücretsiz re-test",
     ],
@@ -39,35 +43,39 @@ const PACKAGES: Pkg[] = [
   },
   {
     name: "Professional Pentest",
-    tagline: "Çok katmanlı uygulama ve API ortamları için kapsamlı test.",
-    price: "Talep Üzerine",
-    duration: "10 - 14 iş günü",
+    tagline:
+      "ERP/CRM kullanan orta ölçekli işletmeler ve fabrikalar için kapsamlı denetim.",
+    price: "₺50.000",
+    priceNote: "Ortalama bedel • KDV hariç",
+    duration: "8 - 12 iş günü",
     icon: ShieldCheck,
     highlight: true,
     badge: "EN POPÜLER",
     features: [
-      "Web + API + iç ağ entegrasyon testi",
-      "Yetki yükseltme ve iş mantığı testleri",
-      "Manuel exploit & PoC kanıtları",
+      "Starter paketinin tüm içeriği",
+      "Web uygulaması testi (ERP / CRM)",
+      "1 adet oltalama (Phishing) simülasyonu",
+      "Çalışan farkındalık raporu",
       "Detaylı CVSS skorlu raporlama",
-      "Geliştirici remediation oturumu",
       "3 ay içinde 2 ücretsiz re-test",
     ],
     cta: "Hemen Başla",
   },
   {
     name: "Enterprise Red Team",
-    tagline: "Kurumsal organizasyonlar için tam kapsamlı saldırı simülasyonu.",
-    price: "Özel Fiyatlandırma",
-    duration: "4 - 8 hafta",
+    tagline:
+      "Fabrikalar ve kurumsal yapılar için iç + dış tam kapsamlı sızma testi.",
+    price: "₺70.000",
+    priceNote: "Başlangıç bedeli • Kapsama göre değişir",
+    duration: "3 - 5 hafta",
     icon: Crown,
     features: [
-      "Web, mobil, API, altyapı, AD, cloud",
-      "Phishing & sosyal mühendislik senaryoları",
-      "Red Team / Purple Team operasyonu",
+      "Professional paketinin tüm içeriği",
+      "İç ağ (Internal) sızma testi",
+      "Yetki yükseltme (Privilege Escalation)",
+      "Detaylı çözüm yol haritası",
       "MITRE ATT&CK eşlemeli raporlama",
-      "Yönetim sunumu ve teknik atölye",
-      "12 ay danışmanlık desteği",
+      "6 ay danışmanlık desteği",
     ],
     cta: "Görüşme Planla",
   },
@@ -86,7 +94,7 @@ export default function Services() {
               pentest çözümleri
             </>
           }
-          description="Standart bir checklist değil; her kuruma özel risk profiline ve saldırı yüzeyine göre tasarlanmış pentest paketleri sunuyoruz."
+          description="Fabrikalar ve orta-küçük ölçekli işletmelerin operasyonel ihtiyaçlarına göre tasarlanmış, kademeli olarak büyüyen üç pentest paketi."
         />
 
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
@@ -95,13 +103,17 @@ export default function Services() {
           ))}
         </div>
 
-        <div className="mt-10 text-center text-sm text-muted">
-          Özel ihtiyaçlarınız için{" "}
+        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border border-white/5 bg-surface/40 p-5 text-center text-xs leading-relaxed text-muted backdrop-blur sm:text-sm">
+          <span className="font-semibold text-white/90">Bilgi:</span>{" "}
+          Belirtilen ücretler ortalama referans bedellerdir; hedef sayısı,
+          uygulama karmaşıklığı, çalışma süresi ve kapsam genişliğine göre
+          özelleştirilir. Fabrika ve KOBİ ölçeğindeki kurumlar için özel
+          fiyatlandırma seçenekleri sunulmaktadır. Net teklif için{" "}
           <a
             href="#iletisim"
             className="font-semibold text-primary underline-offset-4 hover:underline"
           >
-            ekibimizle görüşün
+            ekibimizle iletişime geçin
           </a>
           .
         </div>
@@ -144,8 +156,16 @@ function PackageCard({ pkg, index }: { pkg: Pkg; index: number }) {
         <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
         <p className="mt-1 text-sm text-muted">{pkg.tagline}</p>
 
-        <div className="my-6 flex items-end gap-2 border-y border-white/5 py-5">
-          <span className="text-3xl font-bold text-white">{pkg.price}</span>
+        <div className="my-6 border-y border-white/5 py-5">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-4xl font-bold tracking-tight text-white">
+              {pkg.price}
+            </span>
+            <span className="text-sm font-medium text-muted">'den</span>
+          </div>
+          <div className="mt-1.5 text-[11px] font-medium tracking-wide text-muted">
+            {pkg.priceNote}
+          </div>
         </div>
 
         <div className="mb-5 flex items-center gap-2 text-xs font-medium text-muted">
