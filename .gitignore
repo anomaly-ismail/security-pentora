@@ -6,3 +6,6 @@ out
 *.log
 .vercel
 next-env.d.ts
+
+# Local portable Node.js (Vercel kendi runtime'ını kullanır)
+/node/
