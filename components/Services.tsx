@@ -213,42 +213,14 @@ type Row = {
   values: [Cell, Cell, Cell];
 };
 
-type Group = {
-  title: string;
-  rows: Row[];
-};
-
-const MATRIX: Group[] = [
-  {
-    title: "Test Kapsamı",
-    rows: [
-      { label: "Dış ağ (External) sızma testi", values: [true, true, true] },
-      { label: "OWASP Top 10 zafiyet kontrolü", values: [true, true, true] },
-      { label: "Açık port & servis analizi", values: [true, true, true] },
-      { label: "Web uygulaması testi (ERP / CRM)", values: [false, true, true] },
-      { label: "Oltalama (Phishing) simülasyonu", values: [false, true, true] },
-      { label: "İç ağ (Internal) sızma testi", values: [false, false, true] },
-      { label: "Yetki yükseltme (Privilege Escalation)", values: [false, false, true] },
-      { label: "Detaylı çözüm yol haritası", values: [false, false, true] },
-    ],
-  },
-  {
-    title: "Raporlama",
-    rows: [
-      { label: "Yönetici özetli teknik rapor", values: [true, true, true] },
-      { label: "CVSS skorlu detaylı raporlama", values: [false, true, true] },
-      { label: "MITRE ATT&CK eşlemeli rapor", values: [false, false, true] },
-      { label: "Çalışan farkındalık raporu", values: [false, true, true] },
-    ],
-  },
-  {
-    title: "Destek & Garanti",
-    rows: [
-      { label: "Ücretsiz re-test", values: ["1 ay × 1", "3 ay × 2", "6 ay × 2"] },
-      { label: "Geliştirici remediation oturumu", values: [false, true, true] },
-      { label: "Danışmanlık desteği", values: ["—", "—", "6 ay"] },
-    ],
-  },
+const MATRIX: Row[] = [
+  { label: "Web uygulaması (ERP / CRM) testi", values: [false, true, true] },
+  { label: "Oltalama (Phishing) simülasyonu", values: [false, true, true] },
+  { label: "İç ağ (Internal) sızma testi", values: [false, false, true] },
+  { label: "Yetki yükseltme (Privilege Esc.)", values: [false, false, true] },
+  { label: "MITRE ATT&CK eşlemeli rapor", values: [false, false, true] },
+  { label: "Ücretsiz re-test", values: ["1 ay", "3 ay × 2", "6 ay × 2"] },
+  { label: "Danışmanlık desteği", values: ["—", "—", "6 ay"] },
 ];
 
 const COLUMNS = ["Starter", "Professional", "Enterprise"] as const;
@@ -256,25 +228,25 @@ const COLUMNS = ["Starter", "Professional", "Enterprise"] as const;
 function ComparisonMatrix() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55 }}
-      className="mt-20"
+      transition={{ duration: 0.5 }}
+      className="mx-auto mt-14 max-w-4xl"
     >
-      <div className="mb-8 flex items-center justify-center gap-2">
-        <Sparkles className="h-4 w-4 text-primary" />
-        <h3 className="text-center text-[11px] font-semibold tracking-[0.32em] text-primary">
-          PAKET KARŞILAŞTIRMASI
+      <div className="mb-5 flex items-center justify-center gap-2">
+        <Sparkles className="h-3.5 w-3.5 text-primary" />
+        <h3 className="text-[10px] font-semibold tracking-[0.32em] text-muted">
+          PAKETLERİN FARKI
         </h3>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/8 bg-surface/60 backdrop-blur">
+      <div className="overflow-hidden rounded-xl border border-white/8 bg-surface/50 backdrop-blur">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[640px] border-collapse text-left">
+          <table className="w-full min-w-[560px] border-collapse text-left">
             <thead>
-              <tr className="border-b border-white/8 bg-gradient-to-b from-white/[0.03] to-transparent">
-                <th className="px-5 py-5 text-[11px] font-semibold tracking-[0.2em] text-muted sm:px-7">
+              <tr className="border-b border-white/8">
+                <th className="px-5 py-3.5 text-[10px] font-semibold tracking-[0.2em] text-muted">
                   ÖZELLİK
                 </th>
                 {COLUMNS.map((col, i) => {
@@ -282,26 +254,33 @@ function ComparisonMatrix() {
                   return (
                     <th
                       key={col}
-                      className={`px-3 py-5 text-center text-sm font-bold tracking-tight sm:px-5 ${
-                        isHighlight ? "text-primary" : "text-white"
+                      className={`px-3 py-3.5 text-center text-xs font-bold tracking-wide ${
+                        isHighlight
+                          ? "bg-primary/[0.04] text-primary"
+                          : "text-white"
                       }`}
                     >
-                      <span className="inline-flex flex-col items-center gap-1">
-                        {col}
-                        {isHighlight && (
-                          <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-bold tracking-[0.18em] text-primary ring-1 ring-primary/30">
-                            POPÜLER
-                          </span>
-                        )}
-                      </span>
+                      {col}
                     </th>
                   );
                 })}
               </tr>
             </thead>
             <tbody>
-              {MATRIX.map((group) => (
-                <RowGroup key={group.title} group={group} />
+              {MATRIX.map((row, idx) => (
+                <tr
+                  key={row.label}
+                  className={`border-t border-white/[0.04] ${
+                    idx % 2 === 1 ? "bg-white/[0.015]" : ""
+                  }`}
+                >
+                  <td className="px-5 py-2.5 text-[13px] font-medium text-white/85">
+                    {row.label}
+                  </td>
+                  {row.values.map((v, i) => (
+                    <CellView key={i} value={v} highlight={i === 1} />
+                  ))}
+                </tr>
               ))}
             </tbody>
           </table>
@@ -311,38 +290,8 @@ function ComparisonMatrix() {
   );
 }
 
-function RowGroup({ group }: { group: Group }) {
-  return (
-    <>
-      <tr className="bg-white/[0.02]">
-        <td
-          colSpan={4}
-          className="px-5 py-3 text-[10px] font-bold uppercase tracking-[0.28em] text-muted sm:px-7"
-        >
-          {group.title}
-        </td>
-      </tr>
-      {group.rows.map((row, idx) => (
-        <tr
-          key={row.label}
-          className={`border-t border-white/[0.04] transition hover:bg-white/[0.02] ${
-            idx % 2 === 1 ? "bg-white/[0.01]" : ""
-          }`}
-        >
-          <td className="px-5 py-4 text-sm font-medium text-white/85 sm:px-7">
-            {row.label}
-          </td>
-          {row.values.map((v, i) => (
-            <CellView key={i} value={v} highlight={i === 1} />
-          ))}
-        </tr>
-      ))}
-    </>
-  );
-}
-
 function CellView({ value, highlight }: { value: Cell; highlight: boolean }) {
-  const wrapper = `px-3 py-4 text-center sm:px-5 ${
+  const wrapper = `px-3 py-2.5 text-center ${
     highlight ? "bg-primary/[0.04]" : ""
   }`;
 
@@ -350,8 +299,8 @@ function CellView({ value, highlight }: { value: Cell; highlight: boolean }) {
     return (
       <td className={wrapper}>
         <span
-          className={`text-xs font-semibold ${
-            value === "—" ? "text-muted/60" : "text-white"
+          className={`text-[11px] font-semibold ${
+            value === "—" ? "text-muted/50" : "text-white/90"
           }`}
         >
           {value}
@@ -363,19 +312,19 @@ function CellView({ value, highlight }: { value: Cell; highlight: boolean }) {
   return (
     <td className={wrapper}>
       <span
-        className={`inline-flex h-7 w-7 items-center justify-center rounded-full ${
+        className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${
           value
             ? highlight
               ? "bg-primary/15 text-primary ring-1 ring-primary/30"
               : "bg-success/10 text-success ring-1 ring-success/20"
-            : "bg-white/[0.03] text-muted/50 ring-1 ring-white/5"
+            : "bg-transparent text-muted/40"
         }`}
         aria-label={value ? "Dahil" : "Dahil değil"}
       >
         {value ? (
-          <Check className="h-3.5 w-3.5" strokeWidth={3} />
+          <Check className="h-3 w-3" strokeWidth={3} />
         ) : (
-          <Minus className="h-3.5 w-3.5" strokeWidth={3} />
+          <Minus className="h-3 w-3" strokeWidth={2.5} />
         )}
       </span>
     </td>
