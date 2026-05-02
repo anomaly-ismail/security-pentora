@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Phone, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowRight, Phone, MapPin, ShieldCheck, Mail } from "lucide-react";
 
 const PHONE = "+90 541 805 46 75";
+const EMAIL = "info@pentorasec.com.tr";
 
 export default function Contact() {
   return (
@@ -58,6 +59,12 @@ export default function Contact() {
                 title="Telefon"
                 value={PHONE}
                 href={`tel:${PHONE.replace(/\s/g, "")}`}
+              />
+              <InfoCard
+                icon={<Mail className="h-4 w-4" />}
+                title="E-Posta"
+                value={EMAIL}
+                href={`mailto:${EMAIL}`}
               />
               <InfoCard
                 icon={<MapPin className="h-4 w-4" />}

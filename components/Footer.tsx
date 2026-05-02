@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Phone, MapPin, Building2 } from "lucide-react";
+import { Phone, MapPin, Building2, Mail } from "lucide-react";
 
 const COMPANY_NAME =
   "PENTORA SECURITY SİBER GÜVENLİK FİNANSAL TEKNOLOJİLER TİCARET VE SANAYİ LTD. ŞTİ.";
 const ADDRESS =
   "Türkiye / Eskişehir, Şirintepe Mahallesi, Metiner Sokak";
 const PHONE = "+90 541 805 46 75";
+const EMAIL = "info@pentorasec.com.tr";
 
 const CERTS = [
   { src: "/oscp.png", alt: "OSCP", lightBg: false },
@@ -124,6 +125,15 @@ export default function Footer() {
                   className="text-white transition hover:text-primary"
                 >
                   {PHONE}
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="text-white transition hover:text-primary"
+                >
+                  {EMAIL}
                 </a>
               </li>
             </ul>
