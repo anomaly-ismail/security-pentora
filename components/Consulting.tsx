@@ -154,7 +154,14 @@ export default function Consulting() {
 
         <div className="mt-16 grid gap-4 lg:grid-cols-2">
           {GROUPS.map((g, i) => (
-            <GroupCard key={g.name} group={g} index={i} />
+            <GroupCard
+              key={g.name}
+              group={g}
+              index={i}
+              isLastOdd={
+                i === GROUPS.length - 1 && GROUPS.length % 2 === 1
+              }
+            />
           ))}
         </div>
 
@@ -217,7 +224,15 @@ export default function Consulting() {
   );
 }
 
-function GroupCard({ group, index }: { group: Group; index: number }) {
+function GroupCard({
+  group,
+  index,
+  isLastOdd,
+}: {
+  group: Group;
+  index: number;
+  isLastOdd?: boolean;
+}) {
   const Icon = group.icon;
   return (
     <motion.div
@@ -225,7 +240,11 @@ function GroupCard({ group, index }: { group: Group; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.45, delay: index * 0.05 }}
-      className="group relative rounded-2xl border border-white/8 bg-surface/60 p-6 backdrop-blur transition hover:border-primary/30"
+      className={`group relative rounded-2xl border border-white/8 bg-surface/60 p-6 backdrop-blur transition hover:border-primary/30 ${
+        isLastOdd
+          ? "lg:col-span-2 lg:mx-auto lg:w-[calc(50%_-_0.5rem)]"
+          : ""
+      }`}
     >
       <div className="flex items-start gap-4">
         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
