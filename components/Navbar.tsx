@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShieldCheck } from "lucide-react";
 
 const NAV_LINKS = [
-  { href: "#hizmetler", label: "Hizmetler" },
-  { href: "#metodoloji", label: "Metodoloji" },
-  { href: "#sertifikalar", label: "Sertifikalar" },
+  { href: "#hizmetler", label: "Pentest" },
+  { href: "#abonelik", label: "Abonelik" },
+  { href: "#danismanlik", label: "Danışmanlık" },
+  { href: "#metodoloji", label: "Süreç" },
   { href: "#iletisim", label: "İletişim" },
 ];
 
@@ -54,7 +55,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
@@ -67,7 +68,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href="#iletisim"
             className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-accent px-4 py-2 text-sm font-semibold text-background shadow-glow transition hover:shadow-glow-lg"
@@ -79,7 +80,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white lg:hidden"
           aria-label="Menüyü aç"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -93,7 +94,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="border-t border-white/5 bg-background/95 backdrop-blur-xl md:hidden"
+            className="border-t border-white/5 bg-background/95 backdrop-blur-xl lg:hidden"
           >
             <div className="container-custom flex flex-col gap-1 py-4">
               {NAV_LINKS.map((l) => (
